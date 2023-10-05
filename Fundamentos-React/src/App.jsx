@@ -8,15 +8,37 @@ import styles from './App.module.css';
 
 const posts = [
     {
-      id= 1,
-      author {
-        avatarUrl = 'http://github.com/bugaiOF.png',
-        role = 'Web Developer',
-        name = 'Gustavo Silveira',
+      id: 1,
+      author: {
+        avatarUrl: 'http://github.com/bugaiOF.png',
+        role: 'Web Developer',
+        name: 'Gustavo Silveira',
       },
-      content:
-        '',
-      }
+      content: [
+        {type:'paragraph', content: 'Fala galeraa 👋'},
+
+        {type:'paragraph', content: 'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀'},
+        
+        { type: 'link', content: 'jane.design/doctorcare'},
+      ],
+      publishedAt: new Date('2023-09-28 04:00:00'),
+    },
+    {
+      id: 2,
+      author: {
+        avatarUrl: 'http://github.com/Kayqueew.png',
+        role: 'Web Developer',
+        name: 'Kayque Roger',
+      },
+      content: [
+        {type:'paragraph', content: 'Fala galeraa 👋'},
+
+        {type:'paragraph', content: 'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀'},
+        
+        { type: 'link', content: 'jane.design/doctorcare'},
+      ],
+      publishedAt: new Date('2023-09-29 04:00:00'),
+    },
     
 ];
 
@@ -28,17 +50,16 @@ export function App() {
 
     <div className={styles.wrapper}>
       <Sidebar/>
-        <main>        
-          
-            <Post 
-              author = "Gustavo Silveira" 
-              content = "lLorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi nihil nam hic repellendus, earum facilis omnis corrupti, iusto voluptas praesentium saepe temporibus totam a voluptatum ratione quam similique enim aliquid?"
-            />
-
-            <Post
-              author = "Kayque roger"
-              content = "Lorem ipsum, dolor sit amet consectetur"
-            />
+        <main>
+          {posts.map(post =>{
+            return (
+              <Post
+                author={post.author}
+                content={post.content}
+                publishedAt={post.publishedAt}
+              />
+            )
+          })}        
         </main>
      
     </div>
