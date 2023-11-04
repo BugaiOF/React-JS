@@ -9,7 +9,7 @@ import { useState } from 'react';
 export function Post({author , publishedAt, content}){
     const [comments, setComments] = useState([
         'Post muito massa'
-    ]);
+    ]);     
 
     const [newCommentText, setNewCommentText] = useState('')
 
@@ -29,9 +29,23 @@ export function Post({author , publishedAt, content}){
         setNewCommentText('');
     }
 
+    function handleNewCommentInvalid(){
+        event.target.setCustomValidity('Este campo é obrigatório')
+    }
+
     function handleNewCommentChange (){
+        event.target.setCustomValidity('')
         setNewCommentText(event.target.value)
     }
+
+    function deleteComment(commentToDelete) {
+        const commentsWithoutDeleteOne = comments.filter(comment => {
+            return comment !== commentToDelete;
+        })
+        setComments(commentsWithoutDeleteOne)
+    }
+    
+    const isNewCommentEmpty = newCommentText.length === 0
 
     return (
         <article className={styles.post}>
@@ -67,15 +81,23 @@ export function Post({author , publishedAt, content}){
                     placeholder='Deixe um comentario'
                     value={newCommentText}
                     onChange={handleNewCommentChange}
+                    onInvalid={handleNewCommentInvalid}
+                    required
                 />
 
                 <footer>
-                    <button type='submit'> Publicar </button>
+                    <button type='submit' disabled={isNewCommentEmpty}> Publicar </button>
                 </footer>
             </form>
             <div className={styles.commentList}>
                 {comments.map(comment => {
-                    return <Comment key={comment} content = {comment}/>
+                    return (
+                    <Comment 
+                    key={comment} 
+                    content = {comment} 
+                    onDeleteComment={deleteComment}
+                    />
+                    )
                 })}
             </div>
         </article>
